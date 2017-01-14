@@ -10,7 +10,7 @@ K-Payment Gatewak (Kasikorn Bank)
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'kasikornbank'
+gem 'kasikornbank', :git => 'git://github.com:frizbee/kasikornbank.git'
 ```
 
 And then execute:
