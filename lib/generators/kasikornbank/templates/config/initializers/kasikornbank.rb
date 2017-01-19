@@ -18,6 +18,7 @@ Kasikornbank.configure do |config|
 	# as secret between merchant and Kbank.
 	# Please strictly do not reveal this key to any other
 	# persons who are not concerned.
+	# MD5 Key issued by Kasikorn Bank
 	config.kbank_secret = ENV["KBANK_SECRET"]
 
 	# URL where cardholder will be redirected
