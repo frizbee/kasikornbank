@@ -16,15 +16,27 @@ module Kasikornbank
 
   class Render
   	@@fillspace = "Y"
+  	@@kbank_url = "https://rt05.kasikornbank.com/pgpayment/payment.aspx"
   	attr_accessor :args
 	  
 	  def initialize(*args)
 	  	@args = args
-	  	# binding.pry
 	  end
 
-	  def pay
-	  	binding.pry
+	  def form
+	  	form = "<form name='sendform' method='post' action='#{@@kbank_url}'>"
+	  	form << "<input type='hidden' id=MERCHANT2 name=MERCHANT2 value='#{Kasikornbank.configuration.merchant2}'>"
+	  	form << "<input type='hidden' id=TERM2 name=TERM2 value='#{Kasikornbank.configuration.term2}'>"
+	  	form << "<input type='hidden' id=AMOUNT2 name=AMOUNT2 value='#{amount_in_cents}'>"
+	  	form << "<input type='hidden' id=URL2 name=URL2 value='#{Kasikornbank.configuration.url2}'>"
+	  	form << "<input type='hidden' id=RESPURL name=RESPURL value='#{Kasikornbank.configuration.respurl}'>"
+	  	form << "<input type='hidden' id=IPCUST2 name=IPCUST2 value='#{remote_ip}'>"
+	  	form << "<input type='hidden' id=DETAIL2 name=DETAIL2 value='#{order_details}'>"
+	  	form << "<input type='hidden' id=INVMERCHANT name=INVMERCHANT value='#{invoice_number}'>"
+	  	form << "<input type='hidden' id=FILLSPACE name=FILLSPACE value='#{@@fillspace}'>"
+	  	form << "<input type='text' id='CHECKSUM' value='#{checksum}'>"
+	  	form << "</form>"
+	  	form
 	  end
 
 	  def checksum

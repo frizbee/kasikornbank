@@ -30,6 +30,17 @@ rails g kasikornbank:install
 ```
 Set credentials and other options in `config/initializers/kasikornbank.rb`
 
+In your create method call 
+```
+kbank = Kasikornbank::Render.new({
+	invmerchant: "987", # invoice number, should be a unique number
+	details2: "Electric Fan = Model XYZ103", # Product description
+	ip_address: "111.111.111.205", # IP address of merchant's server
+	amount: 10.99 # Total amount of purchased order
+})
+```
+
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

@@ -58,5 +58,8 @@ describe Kasikornbank do
   	expect(bank.checksum).to eq("7ae781651f203bfb55b1db4756626787")
   end
 
+  it "should return something when call form method" do
+  	expect(bank.form).to_not be nil
+  end
 
 end
