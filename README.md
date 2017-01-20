@@ -39,9 +39,9 @@ Kasikornbank.configure do |config|
 end
 ```
 
-`config.merchant2` = Merchant ID Your merchant number issued by KBank. Numeric 15 digits e.g. 401001234567001  
-`config.term2` = Terminal ID Your terminal ID issued by KBank. Numeric 8 digits e.g. 70123456  
-`config.kbank_secret` = Secret key (salt) to make md5 hash. Issued by KBank  
+`config.merchant2` = Merchant ID Your merchant number issued by KBank. Numeric 15 digits e.g. 401001234567001.   
+`config.term2` = Terminal ID Your terminal ID issued by KBank. Numeric 8 digits e.g. 70123456.   
+`config.kbank_secret` = Secret key (salt) to make md5 hash. Issued by KBank.   
 `config.url2` = URL where cardholder will be redirected back to merchant website.  
 `config.respurl` = Notify url. Must be SSL/TLS URL where KBank will send a variable PMGWRESP2. 
 
