@@ -29,17 +29,36 @@ Generate initializer
 rails g kasikornbank:install
 ```
 Set credentials and other options in `config/initializers/kasikornbank.rb`
+```
+Kasikornbank.configure do |config|
+  config.merchant2 = ENV["KBANK_MERCHANT2"]
+  config.term2 = ENV["KBANK_TERM2"]
+  config.kbank_secret = ENV["KBANK_SECRET"]
+  config.url2 = "https://www.example.com/kbank_back_url"
+  config.respurl = "https://www.example.com/kbank_notify_url"
+end
+```
+
+`config.merchant2` = Merchant ID Your merchant number issued by KBank. Numeric 15 digits e.g. 401001234567001  
+`config.term2` = Terminal ID Your terminal ID issued by KBank. Numeric 8 digits e.g. 70123456  
+`config.kbank_secret` = Secret key (salt) to make md5 hash. Issued by KBank  
+`config.url2` = URL where cardholder will be redirected back to merchant website.  
+`config.respurl` = Notify url. Must be SSL/TLS URL where KBank will send a variable PMGWRESP2. 
 
 In your create method call 
 ```
 kbank = Kasikornbank::Render.new({
-	invmerchant: "987", # invoice number, should be a unique number
-	details2: "Electric Fan = Model XYZ103", # Product description
-	ip_address: "111.111.111.205", # IP address of merchant's server
-	amount: 10.99 # Total amount of purchased order
+	invmerchant: "987",
+	details2: "Electric Fan = Model XYZ103", 
+	ip_address: "111.111.111.205",
+	amount: 10.99
 })
 ```
 
+`invmerchant` = Invoice number, should be a unique number.  
+`details2` = Product description.  
+`ip_address` = IP address of merchant's server.  
+`amount` = Total amount of purchased order.  
 
 ## Development
 
