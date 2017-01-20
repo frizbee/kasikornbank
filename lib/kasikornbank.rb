@@ -5,8 +5,6 @@ require "kasikornbank/configuration"
 
 
 module Kasikornbank
-	@@fillspace = "Y"
-
   class << self
     attr_accessor :configuration
   end
@@ -17,11 +15,9 @@ module Kasikornbank
   end
 
   class Render
+  	@@fillspace = "Y"
   	attr_accessor :args
-	  # def self.new(*args)
-	  # 	@args = args
-	  # 	binding.pry
-	  # end
+	  
 	  def initialize(*args)
 	  	@args = args
 	  	# binding.pry
@@ -37,16 +33,7 @@ module Kasikornbank
 	  	# MERCHANT2 + TERM2 + AMOUNT2 + URL2 + RESURL + IPCUST2 + DETAIL2 + INVMERCHANT + FILLSPACE + SHOPID + PAYTERM2 + MD5 Key
 	  	# Optional fields can be skipped (Fillspace, ShopId, payterm2)
 			Digest::MD5.hexdigest(
-					Kasikornbank.configuration.merchant2 +
-					Kasikornbank.configuration.term2 +
-					amount_in_cents +
-					Kasikornbank.configuration.url2 +
-					Kasikornbank.configuration.respurl +
-					remote_ip +
-					order_details +
-					invoice_number +
-					@@fillspace +
-					Kasikornbank.configuration.kbank_secret
+					"#{Kasikornbank.configuration.merchant2}#{Kasikornbank.configuration.term2}#{amount_in_cents}#{Kasikornbank.configuration.url2}#{Kasikornbank.configuration.respurl}#{remote_ip}#{order_details}#{invoice_number}#{@@fillspace}#{Kasikornbank.configuration.kbank_secret}"
 				)
 		end
 
@@ -76,7 +63,6 @@ module Kasikornbank
 	  # to be in cents before send to KBank
 	  # 10.99 * 100 = 1099
 	  def amount_in_cents
-	  	# binding.pry
 	  	(@args[0][:amount].to_f * 100).to_i
 	  end
 

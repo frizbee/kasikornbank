@@ -1,4 +1,6 @@
 require "spec_helper"
+require "kasikornbank"
+require "kasikornbank/configuration"
 
 describe Kasikornbank do
 	let(:bank) { Kasikornbank::Render.new(
@@ -24,32 +26,37 @@ describe Kasikornbank do
   end
 
   it "has amount in cents to be correct" do
-  	payment = bank
-  	expect(payment.amount_in_cents).to eq(1099)
+  	expect(bank.amount_in_cents).to eq(1099)
   end
 
   it "has correct ip address" do
-  	payment = bank
-  	expect(payment.remote_ip).to eql("127.0.0.1")
+  	expect(bank.remote_ip).to eql("127.0.0.1")
   end
 
   it "has some payment details" do
-  	payment = bank
-  	expect(payment.order_details).to_not be nil
+  	expect(bank.order_details).to_not be nil
   end
 
   it "not nil for invoice" do
-  	payment = bank
-  	expect(payment.invoice_number).to_not be nil
+  	expect(bank.invoice_number).to_not be nil
   end
 
   it "has correct invoice numebr" do
-  	payment = bank
-  	expect(payment.invoice_number).to eq("000000000987")
+  	expect(bank.invoice_number).to eq("000000000987")
   end
 
-  it "should return somethig for checksum functions" do
-  	# payment = bank
-  	# expect(payment.checksum).to_not be nil
+  it "should return MD5 checksum and shouldn't be nil" do
+  	configure = Configuration.new
+  	# All the configurations are already in the settions
+  	# configure.term2 = "70123456"
+  	# configure.merchant2 = "401001234567001"
+  	# configure.kbank_secret = "Rtn6DPfR7XCPpc_v8Fx0Fcv40m0XtcVR"
+  	# configure.url2 = "https://www.example.com"
+  	# configure.respurl = "https://www.example.com"
+  	Kasikornbank.configure { configure }
+  	expect(bank.checksum).to_not be nil 
+  	expect(bank.checksum).to eq("7ae781651f203bfb55b1db4756626787")
   end
+
+
 end
