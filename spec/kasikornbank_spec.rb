@@ -9,7 +9,9 @@ describe Kasikornbank do
 			amount: 10.99,
 			ip_address: "127.0.0.1",
 			details2: "Booking villa",
-			invmerchant: 987
+			invmerchant: 987,
+			shop_id: "Electric Fan",
+			payterm2: "10"
 		}
 	)}
 
@@ -26,7 +28,7 @@ describe Kasikornbank do
   end
 
   it "has amount in cents to be correct" do
-  	expect(bank.amount_in_cents).to eq(1099)
+  	expect(bank.amount_in_cents).to eq("000000001099")
   end
 
   it "has correct ip address" do
@@ -55,11 +57,16 @@ describe Kasikornbank do
   	# configure.respurl = "https://www.example.com"
   	Kasikornbank.configure { configure }
   	expect(bank.checksum).to_not be nil 
-  	expect(bank.checksum).to eq("7ae781651f203bfb55b1db4756626787")
+  	# binding.pry
+  	expect(bank.checksum).to eq("a3394c6950b0d8b64533ef5f1c0dc4cf")
   end
 
   it "should return something when call form method" do
   	expect(bank.form).to_not be nil
+  end
+
+  it "shoud return shop id if provided" do
+  	expect(bank.shop_id).to_not be nil
   end
 
 end
