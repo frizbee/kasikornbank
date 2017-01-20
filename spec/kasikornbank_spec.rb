@@ -49,15 +49,8 @@ describe Kasikornbank do
 
   it "should return MD5 checksum and shouldn't be nil" do
   	configure = Configuration.new
-  	# All the configurations are already in the settions
-  	# configure.term2 = "70123456"
-  	# configure.merchant2 = "401001234567001"
-  	# configure.kbank_secret = "Rtn6DPfR7XCPpc_v8Fx0Fcv40m0XtcVR"
-  	# configure.url2 = "https://www.example.com"
-  	# configure.respurl = "https://www.example.com"
   	Kasikornbank.configure { configure }
-  	expect(bank.checksum).to_not be nil 
-  	# binding.pry
+  	expect(bank.checksum).to_not be nil
   	expect(bank.checksum).to eq("a3394c6950b0d8b64533ef5f1c0dc4cf")
   end
 
