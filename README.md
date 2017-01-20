@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/frizbee/kasikornbank.svg?branch=master)](https://travis-ci.org/frizbee/kasikornbank)
 
-# Kasikornbank Payment Gateway
+# Kasikorn Bank Payment Gateway (Thailand)
 
 This gem provides support for the accepting a credit cards payments with
 K-Payment Gateway (Kasikorn Bank Payment Gateway)
