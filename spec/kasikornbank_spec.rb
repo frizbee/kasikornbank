@@ -1,6 +1,4 @@
 require "spec_helper"
-require "kasikornbank"
-require "kasikornbank/configuration"
 
 describe Kasikornbank do
 	let(:bank) { Kasikornbank::Render.new(

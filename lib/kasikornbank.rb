@@ -1,7 +1,8 @@
 require "kasikornbank/version"
+require "kasikornbank/response"
+require "kasikornbank/configuration"
 require 'pry'
 require 'digest/md5'
-require "kasikornbank/configuration"
 
 module Kasikornbank
   class << self
