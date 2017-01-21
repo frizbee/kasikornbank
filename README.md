@@ -51,7 +51,9 @@ kbank = Kasikornbank::Render.new({
 	invmerchant: "987",
 	details2: "Electric Fan = Model XYZ103", 
 	ip_address: "111.111.111.205",
-	amount: 10.99
+	amount: 10.99,
+	shop_id: "00",
+	payterm2: "10"
 })
 ```
 
@@ -59,6 +61,8 @@ kbank = Kasikornbank::Render.new({
 `details2` = Product description.  
 `ip_address` = IP address of merchant's server.  
 `amount` = Total amount of purchased order.  
+`shop_id` = <**Optional**> Shop ID, for payment template, see documentation.  
+`payterm2` = <**Optional**> Number of month for installment. 
 
 ## Development
 
