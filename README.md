@@ -45,13 +45,15 @@ end
 `config.url2` = URL where cardholder will be redirected back to merchant website.  
 `config.respurl` = Notify url. Must be SSL/TLS URL where KBank will send a variable PMGWRESP2. 
 
-In your create method call 
+In your `checkout#create` method call 
 ```
 kbank = Kasikornbank::Render.new({
 	invmerchant: "987",
 	details2: "Electric Fan = Model XYZ103", 
 	ip_address: "111.111.111.205",
-	amount: 10.99
+	amount: 10.99,
+	shop_id: "00",
+	payterm2: "10"
 })
 ```
 
@@ -59,6 +61,31 @@ kbank = Kasikornbank::Render.new({
 `details2` = Product description.  
 `ip_address` = IP address of merchant's server.  
 `amount` = Total amount of purchased order.  
+`shop_id` = <**Optional**> Shop ID, for payment template, see documentation.  
+`payterm2` = <**Optional**> Number of month for installment. 
+
+> :exclamation: Unfortunately, Kasikorn Bank doesn't have a proper way to handle payment API. In this case `Kasikornbank::Render.new()` will generage auto submit form and return it with `form` method. This form should be placed in `checkout#create` view file.
+
+### Example
+
+_\# app/controllers/checkout_controller.rb_
+```
+require 'kasikornbank'
+
+def create
+	kbank = Kasikornbank::Render.new({
+		invmerchant: "987",
+		details2: "Electric Fan = Model XYZ103", 
+		ip_address: "111.111.111.205",
+		amount: 10.99
+	})
+	@form = kbank.form
+end
+```
+_\# app/views/checkout/create.html.erb_
+```
+<%= @form.html_safe if @form.present? %>
+```
 
 ## Development
 
