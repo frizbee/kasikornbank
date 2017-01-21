@@ -64,7 +64,7 @@ kbank = Kasikornbank::Render.new({
 `shop_id` = <**Optional**> Shop ID, for payment template, see documentation.  
 `payterm2` = <**Optional**> Number of month for installment. 
 
-> :exclamation: Unfortunately Kasikorn Bank doesn't have a proper way to handle payment API. In this case `Kasikornbank::Render.new()` will generage auto submit form and return it with `form` method. This form should be placed in `checkout#create` view file.
+> :exclamation: Unfortunately, Kasikorn Bank doesn't have a proper way to handle payment API. In this case `Kasikornbank::Render.new()` will generage auto submit form and return it with `form` method. This form should be placed in `checkout#create` view file.
 
 
 _\# app/controllers/checkout_controller.rb_
