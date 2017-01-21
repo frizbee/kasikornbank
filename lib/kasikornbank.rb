@@ -40,7 +40,7 @@ module Kasikornbank
 	  	form << "<input type='hidden' id=FILLSPACE name=FILLSPACE value='#{@@fillspace}'>"
 	  	form << "<input type='text' name='SHOPID' id='SHOPID' value='#{shop_id}'>"
 	  	form << "<input type='text' id=Payterm2 name=Payterm2 value='#{payterm2}'>"
-	  	form << "<input type='text' id='CHECKSUM' value='#{checksum}'>"
+	  	form << "<input type='text' id='CHECKSUM' name='CHECKSUM' value='#{checksum}'>"
 	  	form << "</form>"
 	  	form << "<script>"
 	  	form << "window.onload = function(){document.forms['sendform'].submit()}"

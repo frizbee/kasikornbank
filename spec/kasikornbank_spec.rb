@@ -10,7 +10,7 @@ describe Kasikornbank do
 			ip_address: "127.0.0.1",
 			details2: "Booking villa",
 			invmerchant: 987,
-			shop_id: "Electric Fan",
+			shop_id: "00",
 			payterm2: "10"
 		}
 	)}
@@ -49,16 +49,14 @@ describe Kasikornbank do
 
   it "should return MD5 checksum and shouldn't be nil" do
   	configure = Configuration.new
-  	# All the configurations are already in the settions
-  	# configure.term2 = "70123456"
-  	# configure.merchant2 = "401001234567001"
-  	# configure.kbank_secret = "Rtn6DPfR7XCPpc_v8Fx0Fcv40m0XtcVR"
-  	# configure.url2 = "https://www.example.com"
-  	# configure.respurl = "https://www.example.com"
   	Kasikornbank.configure { configure }
   	expect(bank.checksum).to_not be nil 
-  	# binding.pry
-  	expect(bank.checksum).to eq("a3394c6950b0d8b64533ef5f1c0dc4cf")
+  end
+
+  it "checksum should return 32 character string" do
+  	configure = Configuration.new
+  	Kasikornbank.configure { configure }
+  	expect(bank.checksum.length).to eq(32)
   end
 
   it "should return something when call form method" do
@@ -67,6 +65,18 @@ describe Kasikornbank do
 
   it "shoud return shop id if provided" do
   	expect(bank.shop_id).to_not be nil
+  end
+
+  it "has return shop_id" do
+  	expect(bank.shop_id).to eq("00")
+  end
+
+  it "has payterm2" do
+  	expect(bank.payterm2).not_to be nil
+  end
+
+  it "has payterm2 to be exac number" do
+  	expect(bank.payterm2).to eq("10")
   end
 
 end
