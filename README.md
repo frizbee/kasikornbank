@@ -23,6 +23,8 @@ Or install it yourself as:
 
 ## Usage
 
+### 1 - Configuration
+
 Generate initializer
 
 ```
@@ -45,7 +47,7 @@ end
 `config.url2` = URL where cardholder will be redirected back to merchant website.  
 `config.respurl` = Notify url. Must be SSL/TLS URL where KBank will send a variable PMGWRESP2. 
 
-### Render Form
+### 2 - Render Form
 
 In your `checkout#create` method call 
 ```
@@ -89,7 +91,7 @@ _\# app/views/checkout/create.html.erb_
 <%= @form.html_safe if @form.present? %>
 ```
 
-### Response
+### 3 - Response
 
 To be able to receive response from KBank you have to create another action in your checkout controller with post request as it is mandatory by KBank.
 
