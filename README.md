@@ -11,7 +11,7 @@ K-Payment Gateway (Kasikorn Bank Payment Gateway)
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'kasikornbank', :git => 'git://github.com:frizbee/kasikornbank.git'
+gem 'kasikornbank', '~> 0.1.1'
 ```
 
 And then execute:
@@ -46,15 +46,15 @@ end
 `config.term2` = Terminal ID Your terminal ID issued by KBank. Numeric 8 digits e.g. 70123456.  
 `config.kbank_secret` = Secret key (salt) to make md5 hash. Issued by KBank.  
 `config.url2` = URL where cardholder will be redirected back to merchant website.  
-`config.respurl` = Notify url. Must be SSL/TLS URL where KBank will send a variable PMGWRESP2. 
+`config.respurl` = Notify url. Must be SSL/TLS URL where KBank will send a variable PMGWRESP2.  
 
 ### 2 - Render Form
 
-In your `checkout#create` method call 
+In your `checkout#create` method call
 ```
 kbank = Kasikornbank::Render.new({
 	invmerchant: "987",
-	details2: "Electric Fan = Model XYZ103", 
+	details2: "Electric Fan = Model XYZ103",
 	ip_address: "111.111.111.205",
 	amount: 10.99,
 	shop_id: "00",
@@ -67,7 +67,7 @@ kbank = Kasikornbank::Render.new({
 `ip_address` = IP address of merchant's server.  
 `amount` = Total amount of purchased order.  
 `shop_id` = <**Optional**> Shop ID, for payment template, see documentation.  
-`payterm2` = <**Optional**> Number of month for installment. 
+`payterm2` = <**Optional**> Number of month for installment.  
 
 > :exclamation: Unfortunately, Kasikorn Bank doesn't have a proper way to handle payment API. In this case `Kasikornbank::Render.new()` will generage auto submit form and return it with `form` method. This form should be placed in `checkout#create` view file.
 
@@ -80,7 +80,7 @@ require 'kasikornbank'
 def create
 	kbank = Kasikornbank::Render.new({
 		invmerchant: "987",
-		details2: "Electric Fan = Model XYZ103", 
+		details2: "Electric Fan = Model XYZ103",
 		ip_address: "111.111.111.205",
 		amount: 10.99
 	})
