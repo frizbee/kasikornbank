@@ -45,6 +45,8 @@ end
 `config.url2` = URL where cardholder will be redirected back to merchant website.  
 `config.respurl` = Notify url. Must be SSL/TLS URL where KBank will send a variable PMGWRESP2. 
 
+### Render Form
+
 In your `checkout#create` method call 
 ```
 kbank = Kasikornbank::Render.new({
@@ -66,7 +68,7 @@ kbank = Kasikornbank::Render.new({
 
 > :exclamation: Unfortunately, Kasikorn Bank doesn't have a proper way to handle payment API. In this case `Kasikornbank::Render.new()` will generage auto submit form and return it with `form` method. This form should be placed in `checkout#create` view file.
 
-### Example
+#### Example
 
 _\# app/controllers/checkout_controller.rb_
 ```
@@ -86,6 +88,14 @@ _\# app/views/checkout/create.html.erb_
 ```
 <%= @form.html_safe if @form.present? %>
 ```
+
+### Response
+
+To be able to receive response from KBank you have to create another action in your checkout controller with post request as it is mandatory by KBank.
+
+In your `routes.rb` file add `post 'checkout/kbank_response', to: 'checkout#kbank_response'` make sure that this line is out of scope of your locale.
+
+Next step is to avoid blocking request by CSRF rule. This post request will come directly from KBank server, you need to make sure that `checkout#kbank_response` action is not blocked by CSRF. To do that, go to `checkout_controller.rb` and add this line:  `skip_before_action :verify_authenticity_token, :only => [:kbank_response]` this will give access to post anything to your action. Scary huh?
 
 ## Development
 
