@@ -15,14 +15,14 @@ module Kasikornbank
   end
 
   class Render
-  	@@fillspace = "Y"
+    @@fillspace = "Y"
   	@@kbank_url = "https://rt05.kasikornbank.com/pggroup/payment.aspx"
   	attr_accessor :args
-	  
+
 	  def initialize(*args)
 	  	@args = args
 	  end
-		
+
 		# For testing purpose, will be removed
 	  def string
 	  	"#{Kasikornbank.configuration.merchant2}#{Kasikornbank.configuration.term2}#{amount_in_cents}#{Kasikornbank.configuration.url2}#{Kasikornbank.configuration.respurl}#{remote_ip}#{order_details}#{invoice_number}#{@@fillspace}#{Kasikornbank.configuration.kbank_secret}"
@@ -102,7 +102,5 @@ module Kasikornbank
 	  	amount = (@args[0][:amount].to_f * 100).to_i
 	  	sprintf("%012d",amount)
 	  end
-
   end
-
 end
