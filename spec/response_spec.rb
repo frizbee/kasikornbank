@@ -5,7 +5,7 @@ describe Kasikornbank::Response do
 	context "Kasikornbank Response on click go back button" do
 		let(:response1) { 
 			Kasikornbank::Response.new(
-				{HOSTRESP: "00", RESERVED1: "XXXXXXXXXXXX", AUTHCODE: "000002", RETURNINV: "000000012111", RESERVED2: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", CARDNUMBER: "4072XXXXXXXX4249", AMOUNT: "000000000004", THBAMOUNT: "000000000100", CURISO: "036", FXRATE: "000000283155", FILLSPACE: "VISACARDXXXXXXXXXXXX"
+				{HOSTRESP: "00", RESERVED1: "XXXXXXXXXXXX", AUTHCODE: "000002", RETURNINV: "000000012111", RESERVED2: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", CARDNUMBER: "4072XXXXXXXX4249", AMOUNT: "000000004155", THBAMOUNT: "000000000100", CURISO: "036", FXRATE: "000000283155", FILLSPACE: "VISACARDXXXXXXXXXXXX"
 				}
 			)
 		}
@@ -15,6 +15,18 @@ describe Kasikornbank::Response do
 		end
 		it "has success response code" do
 			expect(response1.params[:HOSTRESP]).to eq("00")
+		end
+		it "has to be success" do
+			expect(response1.kbank_response[:response]).to eq("success")
+		end
+		it "has to be correct invoice number" do
+			expect(response1.kbank_response[:invoice]).to eq("12111")
+		end
+		it "has to be correct amount" do
+			expect(response1.kbank_response[:amount]).to eq(41.55)
+		end
+		it "has to has authcode" do
+			expect(response1.kbank_response[:auth_code]).to eq("000002")
 		end
 	end
 
@@ -30,6 +42,18 @@ describe Kasikornbank::Response do
 		end
 		it "has correct mertchan id" do
 			expect(response2.params[:PMGWRESP2][4...19]).to eq("492101000590001")
+		end
+		it "has to be success" do
+			expect(response2.kbank_response[:response]).to eq("success")
+		end
+		it "has to be correct invocie number" do
+			expect(response2.kbank_response[:invoice]).to eq("121362")
+		end
+		it "has to be correct amount" do
+			expect(response2.kbank_response[:amount]).to eq(874.0)
+		end
+		it "should has auth code nil" do
+			expect(response2.kbank_response[:auth_code]).to be nil
 		end
 	end
 
@@ -48,6 +72,18 @@ describe Kasikornbank::Response do
 		end
 		it "has AUD (036) currency in standart response" do
 			expect(response3.params[:PMGWRESP][206...209]).to eq("036")
+		end
+		it "has to be success" do
+			expect(response3.kbank_response[:response]).to eq("success")
+		end
+		it "has to be correct invoice number" do
+			expect(response3.kbank_response[:invoice]).to eq("114")
+		end
+		it "has to be correct amount" do
+			expect(response3.kbank_response[:amount]).to eq(88.82)
+		end
+		it "has auth code" do
+			expect(response3.kbank_response[:auth_code]).to eq('000002')
 		end
 	end
 
