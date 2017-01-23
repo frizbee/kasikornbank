@@ -1,9 +1,9 @@
 class Configuration
   attr_accessor :merchant2
-	attr_accessor :term2
-	attr_accessor :kbank_secret
-	attr_accessor :url2
-	attr_accessor :respurl
+  attr_accessor :term2
+  attr_accessor :kbank_secret
+  attr_accessor :url2
+  attr_accessor :respurl
 
   def initialize
     # Those are testing details
