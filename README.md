@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/frizbee/kasikornbank.svg?branch=master)](https://travis-ci.org/frizbee/kasikornbank)
 [![Gem Version](https://badge.fury.io/rb/kasikornbank.svg)](https://badge.fury.io/rb/kasikornbank)
+[![Code Climate](https://codeclimate.com/github/frizbee/kasikornbank/badges/gpa.svg)](https://codeclimate.com/github/frizbee/kasikornbank)
+[![Issue Count](https://codeclimate.com/github/frizbee/kasikornbank/badges/issue_count.svg)](https://codeclimate.com/github/frizbee/kasikornbank)
 
 # Kasikorn Bank Payment Gateway (Thailand)
 
@@ -11,7 +13,7 @@ K-Payment Gateway (Kasikorn Bank Payment Gateway)
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'kasikornbank', '~> 0.1.2'
+gem 'kasikornbank', '~> 0.1.3'
 ```
 
 And then execute:
@@ -77,6 +79,8 @@ _\# app/controllers/checkout_controller.rb_
 ```
 require 'kasikornbank'
 
+....
+
 def create
 	kbank = Kasikornbank::Render.new({
 		invmerchant: "987",
@@ -99,6 +103,38 @@ To be able to receive response from KBank you have to create another action in y
 In your `routes.rb` file add `post 'checkout/kbank_response', to: 'checkout#kbank_response'` make sure that this line is out of scope of your locale.
 
 Next step is to avoid blocking request by CSRF rule. This post request will come directly from KBank server, you need to make sure that `checkout#kbank_response` action is not blocked by CSRF. To do that, go to `checkout_controller.rb` and add this line:  `skip_before_action :verify_authenticity_token, :only => [:kbank_response]` this will give access to post anything to your action. Scary huh?
+
+KBank will send response to your `checkout#kbank_response` action to
+catch that respose use `Kasikornbank::Response.new(request.POST)` method
+in your controller. You will be provided with hash of data `{:response=>"success", :invoice=>"17", :amount=>874.0, :auth_code=>nil}` use it to update your database.
+
+#### Example
+
+_\# config/routes.rb_
+```
+scope "/:locale", locale: /en|th|zh/ do
+  ...
+  resources :checkout, only: [:new, :create]
+  ...
+end
+post "checkout/kbank_response", to: "checkout#kbank_response"
+```
+
+_\# app/controllers/checkout_controller.rb_
+```
+require 'kasikornbank'
+skip_before_action :verify_authenticity_token, :only => [:kbank_response]
+
+...
+
+def kbank_response
+  response = Kasikornbank::Response.new(request.POST)
+  kbank = response.kbank_response
+  checkout = Checkout.find(kbank[:invoice])
+end
+```
+
+> Controller name, routes, response url can be replaced with name you like.
 
 ## Development
 
