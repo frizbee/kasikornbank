@@ -46,10 +46,10 @@ module Kasikornbank
       def response_code(value)
         case value
         when "00"
-          code = "success"
+          "success"
         else
-          code = "fail"
+          "fail"
         end
       end
-	end
+  end
 end
