@@ -1,7 +1,7 @@
 require "kasikornbank/version"
 require "kasikornbank/response"
 require "kasikornbank/configuration"
-require 'pry'
+#require 'pry'
 require 'digest/md5'
 
 module Kasikornbank
