@@ -133,7 +133,7 @@ def kbank_response
   checkout = Checkout.find(kbank[:invoice])
 end
 ```
-
+_\# Response will be `{:respcode=>"00", :response=>"success", :invoice=>"21", :amount=>1.0, :auth_code=>"140580"}`
 > Controller name, routes, response url can be replaced with name you like.
 
 ## Development
