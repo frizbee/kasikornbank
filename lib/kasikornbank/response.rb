@@ -10,17 +10,20 @@ module Kasikornbank
       response = Hash.new
       if @params[:PMGWRESP2]
         str = @params[:PMGWRESP2]
+        response[:respcode] = str[97...99]
         response[:response] = response_code(str[97...99])
         response[:invoice] = remove_lead_zero(str[32...44])
         response[:amount] = amount(str[85...97])
         response[:auth_code] = nil
       elsif @params[:HOSTRESP]
+        response[:respcode] = @params[:HOSTRESP]
         response[:response] = response_code(@params[:HOSTRESP])
         response[:invoice] = remove_lead_zero(@params[:RETURNINV])
         response[:amount] = amount(@params[:AMOUNT])
         response[:auth_code] = @params[:AUTHCODE]
       elsif @params[:PMGWRESP]
         str = @params[:PMGWRESP]
+        response[:respcode] = str[0...2]
         response[:response] = response_code(str[0...2])
         response[:invoice] = remove_lead_zero(str[56...68])
         response[:amount] = amount(str[82...94])
