@@ -13,7 +13,7 @@ K-Payment Gateway (Kasikorn Bank Payment Gateway)
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'kasikornbank', '~> 0.1.4'
+gem 'kasikornbank', '~> 0.1.5'
 ```
 
 And then execute:
@@ -44,11 +44,11 @@ Kasikornbank.configure do |config|
 end
 ```
 
-`config.merchant2` = Merchant ID Your merchant number issued by KBank. Numeric 15 digits e.g. 401001234567001.  
-`config.term2` = Terminal ID Your terminal ID issued by KBank. Numeric 8 digits e.g. 70123456.  
-`config.kbank_secret` = Secret key (salt) to make md5 hash. Issued by KBank.  
-`config.url2` = URL where cardholder will be redirected back to merchant website.  
-`config.respurl` = Notify url. Must be SSL/TLS URL where KBank will send a variable PMGWRESP2.  
+`config.merchant2` = Merchant ID Your merchant number issued by KBank. Numeric 15 digits e.g. 401001234567001.
+`config.term2` = Terminal ID Your terminal ID issued by KBank. Numeric 8 digits e.g. 70123456.
+`config.kbank_secret` = Secret key (salt) to make md5 hash. Issued by KBank.
+`config.url2` = URL where cardholder will be redirected back to merchant website.
+`config.respurl` = Notify url. Must be SSL/TLS URL where KBank will send a variable PMGWRESP2.
 
 ### 2 - Render Form
 
@@ -64,14 +64,14 @@ kbank = Kasikornbank::Render.new({
 })
 ```
 
-`invmerchant` = Invoice number, should be a unique number.  
-`details2` = Product description.  
-`ip_address` = IP address of merchant's server.  
-`amount` = Total amount of purchased order.  
-`shop_id` = <**Optional**> Shop ID, for payment template, see documentation.  
-`payterm2` = <**Optional**> Number of month for installment.  
+`invmerchant` = Invoice number, should be a unique number.
+`details2` = Product description.
+`ip_address` = IP address of merchant's server.
+`amount` = Total amount of purchased order.
+`shop_id` = <**Optional**> Shop ID, for payment template, see documentation.
+`payterm2` = <**Optional**> Number of month for installment.
 
-> :exclamation: Unfortunately, Kasikorn Bank doesn't have a proper way to handle payment API. In this case `Kasikornbank::Render.new()` will generage auto submit form and return it with `form` method. This form should be placed in `checkout#create` view file.
+> :exclamation: Unfortunately, Kasikorn Bank doesn't have a proper way to handle payment API. In this case `Kasikornbank::Render.new()` will generage auto submit form and return it with `post` method. This form should be placed in `checkout#create` view file.
 
 #### Example
 
@@ -133,7 +133,7 @@ def kbank_response
   checkout = Checkout.find(kbank[:invoice])
 end
 ```
-
+_\# Response will be `{:respcode=>"00", :response=>"success", :invoice=>"21", :amount=>1.0, :auth_code=>"140580"}`_
 > Controller name, routes, response url can be replaced with name you like.
 
 ## Development
