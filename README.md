@@ -126,7 +126,7 @@ require 'kasikornbank'
 skip_before_action :verify_authenticity_token, :only => [:kbank_response, :kbank_notification]
 
 ...
-# This is where cardholder will be re-directed back to merchant's website (POST request)
+_\# This is where cardholder will be re-directed back to merchant's website (POST request)_
 def kbank_response
   response = Kasikornbank::Response.new(request.POST)
   kbank = response.kbank_response
@@ -137,7 +137,7 @@ def kbank_response
   ...
 end
 
-# This URI where kbank will send a variable 'PMGWRESP2' to merchant's server (POST requrest)
+_\# This URI where kbank will send a variable 'PMGWRESP2' to merchant's server (POST requrest)_
 def kbank_notification
   response = Kasikornbank::Response.new(request.POST)
   kbank = response.kbank_response
@@ -148,7 +148,7 @@ def kbank_notification
   ...
 end
 ```
-_\# Response will be `{:respcode=>"00", :response=>"success", :invoice=>"21", :amount=>1.0, :auth_code=>"140580"}`_
+_\# Response will be `{:respcode=>"00", :response=>"success", :invoice=>"21", :amount=>211.0, :auth_code=>"140580"}`_
 > Controller name, routes, response url can be replaced with name you like.
 
 ## Development
