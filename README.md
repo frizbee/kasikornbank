@@ -148,7 +148,7 @@ def kbank_notification
   ...
 end
 ```
-_\# Response will be `{:respcode=>"00", :response=>"success", :invoice=>"21", :amount=>211.0, :auth_code=>"140580"}`_
+_\# Response will be `{:respcode=>"00", :response=>"success", :invoice=>"21", :amount=>211.0, :auth_code=>"140580", :card=>"4751XXXXXXXX1452", :card_type=>"VISA"}`_
 > Controller name, routes, response url can be replaced with name you like.
 
 ## Development
