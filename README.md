@@ -126,7 +126,7 @@ require 'kasikornbank'
 skip_before_action :verify_authenticity_token, :only => [:kbank_response, :kbank_notification]
 
 ...
-_\# This is where cardholder will be re-directed back to merchant's website (POST request)_
+# This is where cardholder will be re-directed back to merchant's website (POST request)
 def kbank_response
   response = Kasikornbank::Response.new(request.POST)
   kbank = response.kbank_response
@@ -137,7 +137,7 @@ def kbank_response
   ...
 end
 
-_\# This URI where kbank will send a variable 'PMGWRESP2' to merchant's server (POST requrest)_
+# This URI where kbank will send a variable 'PMGWRESP2' to merchant's server (POST requrest)
 def kbank_notification
   response = Kasikornbank::Response.new(request.POST)
   kbank = response.kbank_response
