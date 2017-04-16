@@ -1,6 +1,7 @@
 module Kasikornbank
   class Response
     attr_accessor :params
+    CARD_TYPES = {001 => "VISA", 002 => "MasterCard", 003 => "KBank", 004 => "JCB", 005 => "CUP", 007 => "AMEX"}.freeze
 
     def initialize(params)
       @params = params
@@ -62,19 +63,8 @@ module Kasikornbank
       end
 
       def card_type(value)
-        case value.to_i
-        when 001
-          "VISA"
-        when 002
-          "MasterCard"
-        when 003
-          "KBank"
-        when 004
-          "JCB"
-        when 005
-          "CUP"
-        when 007
-          "AMEX"
+        if value
+          CARD_TYPES[value.to_i]
         else
           "N/A"
         end
