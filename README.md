@@ -13,7 +13,7 @@ K-Payment Gateway (Kasikorn Bank Payment Gateway)
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'kasikornbank', '~> 0.1.7'
+gem 'kasikornbank', '~> 0.1.8'
 ```
 
 And then execute:
