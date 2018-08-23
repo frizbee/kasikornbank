@@ -8,6 +8,8 @@
 This gem provides support for the accepting a credit cards payments with
 K-Payment Gateway (Kasikorn Bank Payment Gateway)
 
+Please check official documentation from KasikornBank [docs/kasikornbank.md](docs/kasikornbank.md) document last time updated at Aug 30, 2016
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -30,11 +32,11 @@ Or install it yourself as:
 
 Generate initializer
 
-```
+```ruby
 rails g kasikornbank:install
 ```
 Set credentials and other options in `config/initializers/kasikornbank.rb`
-```
+```ruby
 Kasikornbank.configure do |config|
   config.merchant2 = ENV["KBANK_MERCHANT2"]
   config.term2 = ENV["KBANK_TERM2"]
@@ -53,7 +55,7 @@ end
 ### 2 - Render Form
 
 In your `checkout#create` method call
-```
+```ruby
 kbank = Kasikornbank::Render.new({
 	invmerchant: "987",
 	details2: "Electric Fan = Model XYZ103",
@@ -76,7 +78,8 @@ kbank = Kasikornbank::Render.new({
 #### Example
 
 _\# app/controllers/checkout_controller.rb_
-```
+
+```ruby
 require 'kasikornbank'
 
 ....
@@ -92,7 +95,7 @@ def create
 end
 ```
 _\# app/views/checkout/create.html.erb_
-```
+```ruby
 <%= @form.html_safe if @form.present? %>
 ```
 
@@ -111,7 +114,7 @@ in your controller. You will be provided with hash of data `{:response=>"success
 #### Example
 
 _\# config/routes.rb_
-```
+```ruby
 scope "/:locale", locale: /en|th|zh/ do
   ...
   resources :checkout, only: [:new, :create]
@@ -121,7 +124,7 @@ post "checkout/kbank_response", to: "checkout#kbank_response"
 ```
 
 _\# app/controllers/checkout_controller.rb_
-```
+```ruby
 require 'kasikornbank'
 skip_before_action :verify_authenticity_token, :only => [:kbank_response]
 
