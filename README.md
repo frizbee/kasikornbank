@@ -15,7 +15,7 @@ Please check official documentation from KasikornBank [docs/kasikornbank.md](doc
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'kasikornbank', '~> 0.1.5'
+gem 'kasikornbank', '~> 0.1.8'
 ```
 
 And then execute:
@@ -126,17 +126,32 @@ post "checkout/kbank_response", to: "checkout#kbank_response"
 _\# app/controllers/checkout_controller.rb_
 ```ruby
 require 'kasikornbank'
-skip_before_action :verify_authenticity_token, :only => [:kbank_response]
+skip_before_action :verify_authenticity_token, :only => [:kbank_response, :kbank_notification]
 
 ...
-
+# This is where cardholder will be re-directed back to merchant's website (POST request)
 def kbank_response
   response = Kasikornbank::Response.new(request.POST)
   kbank = response.kbank_response
   checkout = Checkout.find(kbank[:invoice])
+  ...
+  # Here update your DB
+  # and send confirmation emails
+  ...
+end
+
+# This URI where kbank will send a variable 'PMGWRESP2' to merchant's server (POST requrest)
+def kbank_notification
+  response = Kasikornbank::Response.new(request.POST)
+  kbank = response.kbank_response
+  checkout = Checkout.find(kbank[:invoice])
+  ...
+  # Here update your DB
+  # and send confirmation emails
+  ...
 end
 ```
-_\# Response will be `{:respcode=>"00", :response=>"success", :invoice=>"21", :amount=>1.0, :auth_code=>"140580"}`_
+_\# Response will be `{:respcode=>"00", :response=>"success", :invoice=>"21", :amount=>211.0, :auth_code=>"140580", :card=>"4751XXXXXXXX1452", :card_type=>"VISA"}`_
 > Controller name, routes, response url can be replaced with name you like.
 
 ## Development

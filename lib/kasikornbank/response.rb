@@ -1,6 +1,7 @@
 module Kasikornbank
   class Response
     attr_accessor :params
+    CARD_TYPES = {001 => "VISA", 002 => "MasterCard", 003 => "KBank", 004 => "JCB", 005 => "CUP", 007 => "AMEX"}.freeze
 
     def initialize(params)
       @params = params
@@ -14,13 +15,17 @@ module Kasikornbank
         response[:response] = response_code(str[97...99])
         response[:invoice] = remove_lead_zero(str[32...44])
         response[:amount] = amount(str[85...97])
-        response[:auth_code] = nil
+        response[:auth_code] = 'N/A'
+        response[:card] = str[58...77]
+        response[:card_type] = card_type(str[105...108])
       elsif @params[:HOSTRESP]
         response[:respcode] = @params[:HOSTRESP]
         response[:response] = response_code(@params[:HOSTRESP])
         response[:invoice] = remove_lead_zero(@params[:RETURNINV])
         response[:amount] = amount(@params[:AMOUNT])
         response[:auth_code] = @params[:AUTHCODE]
+        response[:card] = 'N/A'
+        response[:card_type] = 'N/A'
       elsif @params[:PMGWRESP]
         str = @params[:PMGWRESP]
         response[:respcode] = str[0...2]
@@ -28,6 +33,8 @@ module Kasikornbank
         response[:invoice] = remove_lead_zero(str[56...68])
         response[:amount] = amount(str[82...94])
         response[:auth_code] = str[14...20]
+        response[:card] = 'N/A'
+        response[:card_type] = 'N/A'
       end
       response
     end
@@ -52,6 +59,14 @@ module Kasikornbank
           "success"
         else
           "fail"
+        end
+      end
+
+      def card_type(value)
+        if value
+          CARD_TYPES[value.to_i]
+        else
+          "N/A"
         end
       end
   end

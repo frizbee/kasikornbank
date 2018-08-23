@@ -27,6 +27,9 @@ describe Kasikornbank::Response do
     it "has to has authcode" do
       expect(response1.kbank_response[:auth_code]).to eq("000002")
     end
+    it "has to be nil for card type" do
+      expect(response1.kbank_response[:card_type]).to eq("N/A")
+    end
   end
 
   context "Kasikornbank Response with SSL callback" do
@@ -52,7 +55,10 @@ describe Kasikornbank::Response do
       expect(response2.kbank_response[:amount]).to eq(874.0)
     end
     it "should has auth code nil" do
-      expect(response2.kbank_response[:auth_code]).to be nil
+      expect(response2.kbank_response[:auth_code]).to eq("N/A")
+    end
+    it "should has card type to be 'AMEX'" do
+      expect(response2.kbank_response[:card_type]).to eq "VISA"
     end
   end
 
