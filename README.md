@@ -162,6 +162,8 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
+I would love if you find some time and contribute to this gem to improve open source for other developers.
+
 Bug reports and pull requests are welcome on GitHub at https://github.com/frizbee/kasikornbank. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 
